@@ -19,88 +19,83 @@
  */
 const checkButton = document.getElementById('checkButton');
 const editButton = document.getElementById('editButton');
-const topWebsites = ['google.com', 'youtube.com', 'facebook.com', 'instagram.com', 'chatgpt.com', 'x.com', 'whatsapp.com', 'reddit.com', 'wikipedia.org', 'amazon.com', 'tiktok.com', 'pinterest.com'];
+const topWebsites = [
+    'google.com',
+    'googleusercontent.com',
+    'fonts.gstatic.com',
+    'fonts.googleapis.com',
+    'mail.google.com',
+    'googleapis.com',
+    'youtube.com',
+    'i.ytimg.com',
+    'icloud.com',
+    'facebook.com',
+    'static.xx.fbcdn.net',
+    'instagram.com',
+    'static.cdninstagram.com',
+    'threads.com',
+    'x.com',
+    'abs.twimg.com',
+    'tiktok.com',
+    'mon.tiktokv.com',
+    'webcast.tiktok.com',
+    'chat.zalo.me',
+    'zaloapp.com',
+    'api-talk.api.zaloapp.com',
+    'shopee.vn',
+    'deo.shopeemobile.com',
+    'api.shopee.vn',
+    'lazada.vn',
+    'img.lazcdn.com',
+    'vnexpress.net',
+    'vcdn1-vnexpress.vnecdn.net',
+    'dantri.com.vn',
+    'api.dantri.com.vn',
+    'cdnphoto.dantri.com.vn',
+    '24h.com.vn',
+    'cdn.24h.com.vn',
+    'tuoitre.vn',
+    'thuvienphapluat.vn',
+    'nhathuoclongchau.com.vn',
+    'voz.vn',
+    'vn-z.vn',
+    'tinhte.vn',
+    'chatgpt.com',
+    'cdn.oaistatic.com'
+];
+
 // Global variable to store chart instance
-const dnsServers = [{
-    name: "AdGuard", url: "https://dns.adguard-dns.com/dns-query", ips: ["94.140.14.14", "94.140.15.15"]
-}, {
-    name: "AliDNS", url: "https://dns.alidns.com/dns-query", ips: ["223.5.5.5", "223.6.6.6"]
-}, {
-    name: "OpenDNS", url: "https://doh.opendns.com/dns-query", ips: ["208.67.222.222", "208.67.220.220"]
-}, {
-    name: "CleanBrowsing",
-    url: "https://doh.cleanbrowsing.org/doh/family-filter/",
-    ips: ["185.228.168.9", "185.228.169.9"]
-}, {
-    name: "Cloudflare",
-    url: "https://cloudflare-dns.com/dns-query",
-    type: "get",
-    allowCors: true,
-    ips: ["1.1.1.1", "1.0.0.1"]
-}, {
-    name: "ControlD", url: "https://freedns.controld.com/p0", ips: ["76.76.2.0", "76.223.122.150"]
-}, {
-    name: "DNS.SB",
-    url: "https://doh.dns.sb/dns-query",
-    type: "get",
-    allowCors: true,
-    ips: ["185.222.222.222", "45.11.45.11"]
-}, {
-    name: "DNSPod",
-    url: "https://dns.pub/dns-query",
-    type: "post",
-    allowCors: false,
-    ips: ["119.29.29.29", "182.254.116.116"]
-}, {
-    name: "Google", url: "https://dns.google/resolve", type: "get", allowCors: true, ips: ["8.8.8.8", "8.8.4.4"]
-}, {
-    name: "Mullvad", url: "https://dns.mullvad.net/dns-query", ips: ["194.242.2.2", "194.242.2.2"], type: "get", allowCors: false
-}, {
-    name: "Mullvad Base", url: "https://base.dns.mullvad.net/dns-query", ips: ["194.242.2.4", "194.242.2.4"], type: "get", allowCors: false
-}, {
-    name: "NextDNS", url: "https://dns.nextdns.io", type: "get", ips: ["45.90.28.0", "45.90.30.0"]
-}, {
-    name: "OpenBLD", url: "https://ada.openbld.net/dns-query", ips: ["146.112.41.2", "146.112.41.102"]
-}, {
-    name: "DNS0.EU", url: "https://zero.dns0.eu/", ips: ["193.110.81.9", "185.253.5.9"]
-}, {
-    name: "Quad9", url: "https://dns.quad9.net/dns-query", ips: ["9.9.9.9", "149.112.112.112"]
-}, {
-    name: "360", url: "https://doh.360.cn/dns-query", ips: ["101.226.4.6", "180.163.224.54"]
-}, {
-    name: "Canadian Shield",
-    url: "https://private.canadianshield.cira.ca/dns-query",
-    ips: ["149.112.121.10", "149.112.122.10"]
-}, {
-    name: "Digitale Gesellschaft",
-    url: "https://dns.digitale-gesellschaft.ch/dns-query",
-    ips: ["185.95.218.42", "185.95.218.43"]
-}, {
-    name: "DNS for Family", url: "https://dns-doh.dnsforfamily.com/dns-query", ips: ["94.130.180.225", "78.47.64.161"]
-}, {
-    name: "Restena", url: "https://dnspub.restena.lu/dns-query", ips: ["158.64.1.29"]
-}, {
-    name: "IIJ", url: "https://public.dns.iij.jp/dns-query", ips: ["203.180.164.45", "203.180.166.45"]
-}, {
-    name: "LibreDNS", url: "https://doh.libredns.gr/dns-query", ips: ["116.202.176.26", "147.135.76.183"]
-}, {
-    name: "Switch", url: "https://dns.switch.ch/dns-query", ips: ["130.59.31.248", "130.59.31.251"]
-}, {
-    name: "Foundation for Applied Privacy", url: "https://doh.applied-privacy.net/query", ips: ["146.255.56.98"],
-}, {
-    name: "UncensoredDNS", url: "https://anycast.uncensoreddns.org/dns-query", ips: ["91.239.100.100", "89.233.43.71"]
-}, {
-    name: "RethinkDNS",
-    url: "https://sky.rethinkdns.com/dns-query",
-    ips: ["104.21.83.62", "172.67.214.246"],
-    allowCors: false,
-}, {
-    name: "FlashStart (registration required)",
-    url: "https://doh.flashstart.com/f17c9ee5",
-    type: "post",
-    allowCors: false,
-    ips: ["185.236.104.104"]
-}];
+const dnsServers = [
+    { name: "AdGuard", url: "https://dns.adguard-dns.com/dns-query", ips: ["94.140.14.14", "94.140.15.15"] },
+    { name: "AliDNS", url: "https://dns.alidns.com/dns-query", ips: ["223.5.5.5", "223.6.6.6"] },
+    { name: "OpenDNS", url: "https://doh.opendns.com/dns-query", ips: ["208.67.222.222", "208.67.220.220"] },
+    { name: "CleanBrowsing", url: "https://doh.cleanbrowsing.org/doh/family-filter/", ips: ["185.228.168.9", "185.228.169.9"] },
+    { name: "ABPVN DNS", url: "https://abpvn.org/dns-query", ips: ["103.70.12.217", "149.28.148.61"] },
+    { name: "VDNS", url: "https://vdns.io.vn/dns", ips: ["160.22.123.95"] },
+    { name: "Cloudflare", url: "https://cloudflare-dns.com/dns-query", type: "get", allowCors: true, ips: ["1.1.1.1", "1.0.0.1"] },
+    { name: "ControlD", url: "https://freedns.controld.com/p0", ips: ["76.76.2.0", "76.223.122.150"] },
+    { name: "DNS.SB", url: "https://doh.dns.sb/dns-query", type: "get", allowCors: true, ips: ["185.222.222.222", "45.11.45.11"] },
+    { name: "DNSPod", url: "https://dns.pub/dns-query", type: "post", allowCors: false, ips: ["119.29.29.29", "182.254.116.116"] },
+    { name: "Google", url: "https://dns.google/resolve", type: "get", allowCors: true, ips: ["8.8.8.8", "8.8.4.4"] },
+    { name: "Mullvad", url: "https://dns.mullvad.net/dns-query", ips: ["194.242.2.2", "194.242.2.2"], type: "get", allowCors: false },
+    { name: "Mullvad Base", url: "https://base.dns.mullvad.net/dns-query", ips: ["194.242.2.4", "194.242.2.4"], type: "get", allowCors: false },
+    { name: "NextDNS", url: "https://dns.nextdns.io", type: "get", ips: ["45.90.28.0", "45.90.30.0"] },
+    { name: "OpenBLD", url: "https://ada.openbld.net/dns-query", ips: ["146.112.41.2", "146.112.41.102"] },
+    { name: "DNS0.EU", url: "https://zero.dns0.eu/", ips: ["193.110.81.9", "185.253.5.9"] },
+    { name: "Quad9", url: "https://dns.quad9.net/dns-query", ips: ["9.9.9.9", "149.112.112.112"] },
+    { name: "360", url: "https://doh.360.cn/dns-query", ips: ["101.226.4.6", "180.163.224.54"] },
+    { name: "Canadian Shield", url: "https://private.canadianshield.cira.ca/dns-query", ips: ["149.112.121.10", "149.112.122.10"] },
+    { name: "Digitale Gesellschaft", url: "https://dns.digitale-gesellschaft.ch/dns-query", ips: ["185.95.218.42", "185.95.218.43"] },
+    { name: "DNS for Family", url: "https://dns-doh.dnsforfamily.com/dns-query", ips: ["94.130.180.225", "78.47.64.161"] },
+    { name: "Restena", url: "https://dnspub.restena.lu/dns-query", ips: ["158.64.1.29"] },
+    { name: "IIJ", url: "https://public.dns.iij.jp/dns-query", ips: ["203.180.164.45", "203.180.166.45"] },
+    { name: "LibreDNS", url: "https://doh.libredns.gr/dns-query", ips: ["116.202.176.26", "147.135.76.183"] },
+    { name: "Switch", url: "https://dns.switch.ch/dns-query", ips: ["130.59.31.248", "130.59.31.251"] },
+    { name: "Foundation for Applied Privacy", url: "https://doh.applied-privacy.net/query", ips: ["146.255.56.98"] },
+    { name: "UncensoredDNS", url: "https://anycast.uncensoreddns.org/dns-query", ips: ["91.239.100.100", "89.233.43.71"] },
+    { name: "RethinkDNS", url: "https://sky.rethinkdns.com/dns-query", ips: ["104.21.83.62", "172.67.214.246"], allowCors: false },
+    { name: "FlashStart (registration required)", url: "https://doh.flashstart.com/f17c9ee5", type: "post", allowCors: false, ips: ["185.236.104.104"] }
+];
 
 let dnsChart;
 
